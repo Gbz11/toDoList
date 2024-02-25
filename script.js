@@ -6,7 +6,7 @@ function addTask(){
   //créer une tâche
   let inputText = inputTask.value;
 
-  if(inputText ===""){
+  if(inputText ==="" || inputText === null){
     return;
   }
 
@@ -15,18 +15,18 @@ function addTask(){
   tasklist.appendChild(li);
 
 
-  //modifier une tâche
+  //boutton pour modifier une tâche
   const updateLi = document.createElement('button');
   updateLi.innerHTML = 'Modifier';
   updateLi.onclick = function(){
-    modifyTask()
+    modifyTask(li)
   };
 
-  //supprimer une tâche
+  //boutton pour supprimer une tâche
   const deleteLi = document.createElement('button');
   deleteLi.innerHTML = 'Supprimer';
   deleteLi.onclick = function (){
-    deleteTask()
+    deleteTask(li)
   };
 
 
@@ -35,12 +35,25 @@ function addTask(){
   inputTask.value = "";
 }
 
-//modifié la saisie
-function modifyTask(){
+//fonction pour modifier la saisie
+
+function modifyTask(task){
+  let taskElement = task.firstChild;
+  let taskText = taskElement.textContent;
+  let newTaskText = prompt('Modifier la tâche: ', taskText)
+
+  taskElement.textContent = newTaskText;
   
+  if(newTaskText === "" || newTaskText === null){
+    return;
+  }
 }
 
 
-//supprimer la saisie
+//fonction pour supprimer la saisie
 
-function deleteTask(){}
+function deleteTask(task){
+  tasklist.removeChild(task);
+}
+
+// Gérer le rafraichissement avec localstorage
